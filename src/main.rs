@@ -21,17 +21,13 @@ fn main() {
             lambda("x", lambda("x", num(42))),
             app(app(var("f"), num(42)), num(42)),
         ),
-        let_("f", lambda("x", var("x")), var("f")),
         let_(
             "f",
             lambda("x", var("x")),
             let_("y", app(var("f"), num(42)), var("f")),
         ),
-        let_("f", lambda("x", lambda("x", var("x"))), var("f")),
-        let_("f", lambda("x", lambda("y", var("x"))), var("f")),
-        let_("f", lambda("x", app(var("f"), var("x"))), var("f")),
     ] {
-        let type_scheme = infer_type_scheme(expression).unwrap();
+        let type_scheme = infer_type(expression).unwrap();
 
         println!("{} : {}", expression, type_scheme);
     }
