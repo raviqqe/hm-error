@@ -1,6 +1,6 @@
-# hm-type-inference
+# hm-error
 
-Hindley-Milner type inference in Rust
+Hindley-Milner type inference with error types in Rust
 
 ## Usage
 
@@ -11,7 +11,3 @@ cargo run
 ## License
 
 [MIT](LICENSE)
-
-## References
-
-- [型推論機構の実装](https://www.fos.kuis.kyoto-u.ac.jp/~igarashi/class/isle4-06w/text/miniml011.html)
