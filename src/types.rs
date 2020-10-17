@@ -44,6 +44,7 @@ impl From<RawType> for Type {
 
 #[derive(Clone, Debug, Eq, PartialEq)]
 pub enum RawType {
+    Error,
     Function(Arc<Type>, Arc<Type>),
     Number,
 }
@@ -51,6 +52,7 @@ pub enum RawType {
 impl RawType {
     pub fn substitute(&self, substitutions: &HashMap<usize, Type>) -> Self {
         match self {
+            Self::Error => Self::Error,
             Self::Function(argument_type, result_type) => Self::Function(
                 argument_type.substitute(substitutions).into(),
                 result_type.substitute(substitutions).into(),
@@ -63,6 +65,7 @@ impl RawType {
 impl Display for RawType {
     fn fmt(&self, formatter: &mut Formatter) -> std::fmt::Result {
         match self {
+            Self::Error => write!(formatter, "Error"),
             Self::Function(argument, result) => write!(formatter, "{} -> {}", argument, result),
             Self::Number => write!(formatter, "Number"),
         }
