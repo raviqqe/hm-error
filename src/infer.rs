@@ -50,7 +50,7 @@ fn infer(
             let (mut substitutions, type_) = infer(&environment, &bound_expression)?;
 
             let mut environment = environment.clone();
-            environment.insert(variable.clone(), type_.clone());
+            environment.insert(variable.clone(), type_);
 
             let (other_substitutions, type_) = infer(&environment, &expression)?;
 
