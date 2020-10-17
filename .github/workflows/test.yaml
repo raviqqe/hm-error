@@ -1,0 +1,16 @@
+name: test
+on:
+  - push
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    container:
+      image: rust
+    steps:
+      - uses: actions/checkout@v2
+      - run: rustup component add clippy rustfmt
+      - run: cargo build
+      - run: cargo fmt -- --check
+      - run: cargo clippy -- -D warnings
+      - run: cargo test
+      - run: cargo run
