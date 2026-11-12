@@ -7,7 +7,7 @@ jobs:
     container:
       image: rust
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v2.8.0
       - run: rustup component add clippy rustfmt
       - run: cargo build
       - run: cargo fmt -- --check
