@@ -11,7 +11,7 @@ pub enum Type {
 
 impl Type {
     pub fn new_variable() -> Type {
-        Type::Variable(rand::random())
+        Type::Variable(rand::random_range(..=usize::MAX))
     }
 
     pub fn substitute(&self, substitutions: &HashMap<usize, Type>) -> Type {
