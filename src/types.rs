@@ -21,7 +21,7 @@ impl Type {
                 result_type.substitute(substitutions).into(),
             ),
             Self::Number => Self::Number,
-            Self::Variable(id) => substitutions.get(id).unwrap_or_else(|| self).clone(),
+            Self::Variable(id) => substitutions.get(id).unwrap_or(self).clone(),
         }
     }
 }
