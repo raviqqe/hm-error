@@ -18,8 +18,8 @@ fn infer(
 ) -> Result<(HashMap<usize, Type>, Type), InferenceError> {
     Ok(match expression {
         Expression::Application(function, argument) => {
-            let (mut substitutions, function_type) = infer(&environment, &function)?;
-            let (other_substitutions, argument_type) = infer(&environment, &argument)?;
+            let (mut substitutions, function_type) = infer(environment, function)?;
+            let (other_substitutions, argument_type) = infer(environment, argument)?;
 
             substitutions.extend(other_substitutions);
 
@@ -40,19 +40,19 @@ fn infer(
             let mut environment = environment.clone();
             environment.insert(variable.clone(), argument_type.clone());
 
-            let (substitutions, result_type) = infer(&environment, &expression)?;
+            let (substitutions, result_type) = infer(&environment, expression)?;
             let function_type =
                 Type::Function(argument_type.into(), result_type.into()).substitute(&substitutions);
 
             (substitutions, function_type)
         }
         Expression::Let(variable, bound_expression, expression) => {
-            let (mut substitutions, type_) = infer(&environment, &bound_expression)?;
+            let (mut substitutions, type_) = infer(environment, bound_expression)?;
 
             let mut environment = environment.clone();
             environment.insert(variable.clone(), type_);
 
-            let (other_substitutions, type_) = infer(&environment, &expression)?;
+            let (other_substitutions, type_) = infer(&environment, expression)?;
 
             substitutions.extend(other_substitutions);
             (substitutions.clone(), type_.substitute(&substitutions))
